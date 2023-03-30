@@ -16,8 +16,7 @@ public partial class Estado
 
     [Unicode(false)]
     public string Uf { get; set; } = null!;
-
-    [ForeignKey("CodigoRegiao")]
+    
     public virtual Int64 CodigoRegiao { get; set; }
 
     public Estado()

@@ -19,7 +19,6 @@ public class Cidade
     [Unicode(false)]
     public string UF { get; set; } = null!;
 
-    [ForeignKey("CodigoEstado")]
     public virtual Int64 CodigoEstado { get; set; }
 
     public Cidade()
