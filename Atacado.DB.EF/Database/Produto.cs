@@ -11,6 +11,7 @@ namespace Atacado.DB.EF.Database
     {
         [Key]
         public int Codigo { get; set; }
+
         public int CodigoSubcategoria { get; set; }
         
         [Unicode(false)]
@@ -18,14 +19,17 @@ namespace Atacado.DB.EF.Database
 
         [Column(TypeName = "decimal(7, 2)")]
         public decimal Valor { get; set; }
+
         public bool Ativo { get; set; }
 
         [Column(TypeName = "datetime")]
         public DateTime? DataInclusao { get; set; }
+        
         public int CodigoCategoria { get; set; }
 
-        [ForeignKey("CodigoSubcategoria")]
-        [InverseProperty("Produtos")]
-        public virtual Subcategoria CodigoSubcategoriaNavigation { get; set; } = null!;
+        public override string ToString()
+        {
+            return $"{Codigo} - {Descricao}";
+        }
     }
 }

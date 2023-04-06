@@ -10,20 +10,10 @@ public class Program
         Console.Clear();
 
         var contexto = new AtacadoContext();
+        BaseTestes categoriaTestes = new SubcategoriaTestes(contexto);
 
         Console.WriteLine("Executando pesquisa...");
-        foreach (Cidade item in contexto.Cidades.AsNoTracking().ToList())
-        {
-            Console.WriteLine(item);
-        }
-        foreach (Estado item in contexto.Estados.AsNoTracking().ToList())
-        {
-            Console.WriteLine(item);
-        }
-        foreach (Regiao item in contexto.Regioes.AsNoTracking().ToList())
-        {
-            Console.WriteLine(item);
-        }
+        categoriaTestes.Imprimir();
         Console.WriteLine("Fim do programa");
         Console.ReadLine();
     }

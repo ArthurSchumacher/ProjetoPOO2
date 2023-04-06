@@ -9,20 +9,24 @@ namespace Atacado.DB.EF.Database
     [Table("Categoria")]
     public partial class Categoria
     {
-        public Categoria()
-        {
-            Subcategoria = new HashSet<Subcategoria>();
-        }
-
         [Key]
         public int Codigo { get; set; }
+
         [Unicode(false)]
         public string Descricao { get; set; } = null!;
+
         public bool Ativo { get; set; }
+
         [Column(TypeName = "datetime")]
         public DateTime? DataInclusao { get; set; }
 
-        [InverseProperty("CodigoCategoriaNavigation")]
-        public virtual ICollection<Subcategoria> Subcategoria { get; set; }
+        public Categoria()
+        {
+        }
+
+        public override string? ToString()
+        {
+            return $"{Codigo} - {Descricao}";
+        }
     }
 }

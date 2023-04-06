@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Atacado.DB.EF.Database;
 
 [Table("Cidade")]
-public class Cidade
+public partial class Cidade
 {
 
     [Key]

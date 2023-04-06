@@ -22,6 +22,8 @@ namespace Atacado.DB.EF.Database
         public virtual DbSet<Regiao> Regioes { get; set; } = null!;
         public virtual DbSet<Estado> Estados { get; set; } = null!;
         public virtual DbSet<Cidade> Cidades { get; set; } = null!;
+        public virtual DbSet<AreaConhecimento> AreaConhecimentos { get; set; } = null!;
+        public virtual DbSet<Banco> Bancos { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,28 +43,18 @@ namespace Atacado.DB.EF.Database
             modelBuilder.Entity<Produto>(entity =>
             {
                 entity.Property(e => e.DataInclusao).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.CodigoSubcategoriaNavigation)
-                    .WithMany(p => p.Produtos)
-                    .HasForeignKey(d => d.CodigoSubcategoria)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Produto_Subcategoria");
             });
 
             modelBuilder.Entity<Subcategoria>(entity =>
             {
                 entity.Property(e => e.DataInclusao).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.CodigoCategoriaNavigation)
-                    .WithMany(p => p.Subcategoria)
-                    .HasForeignKey(d => d.CodigoCategoria)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Subcategoria_Categoria");
             });
 
             modelBuilder.Entity<Regiao>();
             modelBuilder.Entity<Estado>();
             modelBuilder.Entity<Cidade>();
+            modelBuilder.Entity<AreaConhecimento>();
+            modelBuilder.Entity<Banco>();
 
             OnModelCreatingPartial(modelBuilder);
         }
