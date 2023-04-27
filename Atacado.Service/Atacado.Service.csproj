@@ -1,4 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Atacado.DB.EF\Atacado.DB.EF.csproj" />
+    <ProjectReference Include="..\Atacado.Poco\Atacado.Poco.csproj" />
+    <ProjectReference Include="..\Atacado.Repository\Atacado.Repository.csproj" />
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

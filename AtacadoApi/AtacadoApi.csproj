@@ -13,5 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Atacado.Poco\Atacado.Poco.csproj" />
     <ProjectReference Include="..\Atacado.DB.EF\Atacado.DB.EF.csproj" />
+    <ProjectReference Include="..\Atacado.Service\Atacado.Service.csproj" />
   </ItemGroup>
 </Project>
