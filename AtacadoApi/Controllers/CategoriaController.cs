@@ -11,10 +11,32 @@ namespace AtacadoApi.Controllers;
 public class CategoriaController : ControllerBase
 {
     [HttpGet]
-    public List<CategoriaPoco> GetAll([FromServices]AtacadoContext context)
-    {
-        CategoriaServico _service = new CategoriaServico(context);
+    public List<CategoriaPoco> GetAll([FromServices]CategoriaServico service)
+    { 
+        return service.Listar();
+    }
 
-        return _service.Listar();
+    [HttpGet("{id:int}")]
+    public CategoriaPoco GetOne([FromServices]CategoriaServico service, [FromRoute]int id)
+    {
+        return service.Ler(id);
+    }
+
+    [HttpPost]
+    public CategoriaPoco CreateOne([FromServices]CategoriaServico service, [FromBody]CategoriaPoco poco)
+    {
+        return service.Adicionar(poco);
+    }
+
+    [HttpPut]
+    public CategoriaPoco UpdateOne([FromServices]CategoriaServico service, [FromBody]CategoriaPoco poco)
+    {
+        return service.Atualizar(poco);
+    }
+
+    [HttpDelete("{id:int}")]
+    public CategoriaPoco RemoveOne([FromServices]CategoriaServico service, [FromRoute]int id)
+    {
+        return service.Remover(id);
     }
 }

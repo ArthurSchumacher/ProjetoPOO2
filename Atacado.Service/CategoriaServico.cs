@@ -15,7 +15,13 @@ public class CategoriaServico : BaseAtacadoContextServico<CategoriaPoco, Categor
 
     public override CategoriaPoco Ler(int id)
     {
-        throw new NotImplementedException();
+        Categoria tupla = _repository.Read(id);
+        if (tupla == null)
+            return null;
+        else
+        {
+            return Converter(tupla);
+        }
     }
 
     public override List<CategoriaPoco> Listar()
@@ -25,17 +31,19 @@ public class CategoriaServico : BaseAtacadoContextServico<CategoriaPoco, Categor
 
     public override CategoriaPoco Adicionar(CategoriaPoco obj)
     {
-        throw new NotImplementedException();
+        Categoria nova = _repository.Create(Converter(obj));
+        return Converter(nova);
     }
 
     public override CategoriaPoco Atualizar(CategoriaPoco obj)
     {
-        throw new NotImplementedException();
+        Categoria alterada = _repository.Update(Converter(obj));
+        return Converter(alterada);
     }
 
     public override CategoriaPoco Remover(int id)
     {
-        throw new NotImplementedException();
+        return Converter(_repository.Delete(id));
     }
 
     public override CategoriaPoco Converter(Categoria obj)
