@@ -1,7 +1,5 @@
-using Atacado.DB.EF.Database;
 using Atacado.Poco;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Atacado.Service;
 
 namespace AtacadoApi.Controllers;
@@ -10,33 +8,40 @@ namespace AtacadoApi.Controllers;
 [Route("api/[controller]")]
 public class CategoriaController : ControllerBase
 {
+    private CategoriaServico _service;
+
+    public CategoriaController(CategoriaServico service)
+    {
+        _service = service;
+    }
+
     [HttpGet]
-    public List<CategoriaPoco> GetAll([FromServices]CategoriaServico service)
+    public List<CategoriaPoco> GetAll()
     { 
-        return service.Listar();
+        return _service.Listar();
     }
 
     [HttpGet("{id:int}")]
-    public CategoriaPoco GetOne([FromServices]CategoriaServico service, [FromRoute]int id)
+    public CategoriaPoco GetOne([FromRoute]int id)
     {
-        return service.Ler(id);
+        return _service.Ler(id);
     }
 
     [HttpPost]
-    public CategoriaPoco CreateOne([FromServices]CategoriaServico service, [FromBody]CategoriaPoco poco)
+    public CategoriaPoco CreateOne([FromBody]CategoriaPoco poco)
     {
-        return service.Adicionar(poco);
+        return _service.Adicionar(poco);
     }
 
     [HttpPut]
-    public CategoriaPoco UpdateOne([FromServices]CategoriaServico service, [FromBody]CategoriaPoco poco)
+    public CategoriaPoco UpdateOne([FromBody]CategoriaPoco poco)
     {
-        return service.Atualizar(poco);
+        return _service.Atualizar(poco);
     }
 
     [HttpDelete("{id:int}")]
-    public CategoriaPoco RemoveOne([FromServices]CategoriaServico service, [FromRoute]int id)
+    public CategoriaPoco RemoveOne([FromRoute]int id)
     {
-        return service.Remover(id);
+        return _service.Remover(id);
     }
 }

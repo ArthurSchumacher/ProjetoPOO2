@@ -10,7 +10,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AtacadoContext>();
-builder.Services.AddScoped<CategoriaServico>();
 
 var app = builder.Build();
 
