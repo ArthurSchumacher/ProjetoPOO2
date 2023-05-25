@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Atacado.DB.EF.Database;
 using Atacado.Poco;
 using Atacado.Repository;
@@ -66,5 +67,12 @@ public class CategoriaServico : BaseAtacadoContextServico<CategoriaPoco, Categor
             Ativo = obj.Ativo,
             DataInclusao = obj.DataInclusao
         };
+    }
+
+    public override List<CategoriaPoco> Listar(Expression<Func<Categoria, bool>> predicado)
+    {
+        return _repository.Read(predicado)
+            .Select(tupla => this.Converter(tupla))
+            .ToList<CategoriaPoco>();
     }
 }

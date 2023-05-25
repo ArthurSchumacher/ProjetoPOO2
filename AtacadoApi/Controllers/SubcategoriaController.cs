@@ -1,30 +1,55 @@
-using Microsoft.AspNetCore.Mvc;
 using Atacado.DB.EF.Database;
 using Atacado.Poco;
+using Atacado.Service;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AtacadoApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class SubcategoriaController : ControllerBase
+[Route("api/Atacado/Estoque/")]
+public class SubcategoriaController : BaseController
 {
-    [HttpGet]
-    public List<SubcategoriaPoco> GetAll([FromServices]AtacadoContext context)
+    private SubcategoriaServico _service;
+    
+    public SubcategoriaController() : base()
     {
-        List<SubcategoriaPoco> list = new List<SubcategoriaPoco>();
+        _service = new (context);
+    }
 
-        foreach (var item in context.Subcategorias.AsNoTracking().ToList())
-        {
-            SubcategoriaPoco poco = new SubcategoriaPoco();
-            poco.Ativo = item.Ativo;
-            poco.Codigo = item.Codigo;
-            poco.CodigoCategoria = item.CodigoCategoria;
-            poco.DataInclusao = item.DataInclusao;
-            poco.Descricao = item.Descricao;
-            list.Add(poco);
-        }
+    [HttpGet("Subcategorias")]
+    public List<SubcategoriaPoco> GetAll()
+    {
+        return _service.Listar();
+    }
 
-        return list;
+    [HttpGet("Subcategorias/PorCategoria/{categoriaId}")]
+    public List<SubcategoriaPoco> GetByCategoriaId(int categoriaId)
+    {
+        return _service.Listar(sub => sub.CodigoCategoria == categoriaId);
+    }
+
+    [HttpGet("[controller]/{id}")]
+    public SubcategoriaPoco GetById(int id)
+    {
+        return _service.Ler(id);
+    }
+
+    [HttpPost("[controller]")]
+    public SubcategoriaPoco Post([FromBody]SubcategoriaPoco poco)
+    {
+        return _service.Adicionar(poco);
+    }
+
+    [HttpPut("[controller]")]
+    public SubcategoriaPoco Put([FromBody]SubcategoriaPoco poco)
+    {
+        return _service.Atualizar(poco);
+    }
+
+    [HttpDelete("[controller]/{chave}")]
+    public SubcategoriaPoco Delete(int chave)
+    {
+        return _service.Remover(chave);
     }
 }

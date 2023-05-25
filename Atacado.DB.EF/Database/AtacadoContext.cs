@@ -24,6 +24,7 @@ namespace Atacado.DB.EF.Database
         public virtual DbSet<Cidade> Cidades { get; set; } = null!;
         public virtual DbSet<AreaConhecimento> AreaConhecimentos { get; set; } = null!;
         public virtual DbSet<Banco> Bancos { get; set; } = null!;
+        public virtual DbSet<Profissao> Profissoes { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -48,6 +49,11 @@ namespace Atacado.DB.EF.Database
             modelBuilder.Entity<Subcategoria>(entity =>
             {
                 entity.Property(e => e.DataInclusao).HasDefaultValueSql("(getdate())");
+            });
+            
+            modelBuilder.Entity<Profissao>(entity =>
+            {
+                entity.Property(e => e.DataInsert).HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<Regiao>();

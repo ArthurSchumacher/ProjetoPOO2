@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 namespace Atacado.Service;
 
 public abstract class BaseServico<TPoco, TModelEF>
@@ -5,6 +6,7 @@ public abstract class BaseServico<TPoco, TModelEF>
     where TModelEF : class
 {
     public abstract List<TPoco> Listar();
+    public abstract List<TPoco> Listar(Expression<Func<TModelEF, bool>> predicado);
     public abstract TPoco Ler(int id);
     public abstract TPoco Adicionar(TPoco obj);
     public abstract TPoco Atualizar(TPoco obj);
